@@ -8,6 +8,6 @@ require (
 	github.com/urfave/cli/v2 v2.2.0 // indirect
 )
 
-module github.com/fabiofns/api-ramada
+module github.com/fabiofns/api-ramada/functions
 
 go 1.21.3
