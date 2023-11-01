@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/fabiofns/api-ramada/Api/functions"
+	"github.com/fabiofns/api-ramada/functions"
 
 	"github.com/akrylysov/algnhsa"
 )

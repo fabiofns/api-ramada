@@ -1,0 +1,5 @@
+{
+    "go.toolsEnvVars": {
+        "GOROOT": "/Users/fabiofns/go/go1.21.3"
+    }
+}
