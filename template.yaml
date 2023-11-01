@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  ApiRamada
+  
+  Sample SAM Template for ApiRamada
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 150
+    Tracing: Active
+  Api:
+    TracingEnabled: True
+
+Resources:  
+  Api:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: Api/
+      Handler: Api
+      Runtime: go1.x
+      Architectures:
+        - x86_64
+      Events:
+        CatchAll:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /
+            Method: GET
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          USER_DB: developer
+          PASSWORD_DB: developer
+          NAME_DB: apiRamadateste
+          TCP_DB: ramada.c6g5nrwkafan.us-east-1.rds.amazonaws.com:3306
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0eca488d821589486
+        SubnetIds:
+          - subnet-07462c74e1155751a
+          - subnet-0a9116b895d607f9d
+          - subnet-06a13ce4bc7f09bcb 
+  Add:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: Api/
+      Handler: Api
+      Runtime: go1.x
+      Architectures:
+        - x86_64
+      Events:
+        CatchAll:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /add
+            Method: GET
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          USER_DB: developer
+          PASSWORD_DB: developer
+          NAME_DB: apiRamadateste
+          TCP_DB: ramada.c6g5nrwkafan.us-east-1.rds.amazonaws.com:3306
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0eca488d821589486
+        SubnetIds:
+          - subnet-07462c74e1155751a
+          - subnet-0a9116b895d607f9d
+          - subnet-06a13ce4bc7f09bcb 
+Outputs:
+  Api:
+    Description: "API Gateway endpoint URL for Prod stage for Other Custumers Now function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+
+  Add:
+    Description: "API Gateway endpoint URL for Prod stage for Other Custumers Now function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/add"
